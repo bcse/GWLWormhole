@@ -12,9 +12,9 @@
 static NSString * const GWLWormholeNotificationName = @"GWLWormholeNotificationName";
 
 void wormholeNotificationCallback(CFNotificationCenterRef center,
-                                  void * observer,
+                                  void *observer,
                                   CFStringRef name,
-                                  void const * object,
+                                  const void *object,
                                   CFDictionaryRef userInfo) {
     NSString *identifier = (__bridge NSString *)name;
 
@@ -36,24 +36,18 @@ void wormholeNotificationCallback(CFNotificationCenterRef center,
 
     // Do any additional setup after loading the view.
     CFNotificationCenterRef const center = CFNotificationCenterGetDarwinNotifyCenter();
-    CFStringRef str = (__bridge CFStringRef)@"CFGWLWormholeHello";
+    // The last 2 arguments are ignored if center is a Darwin Notification Center
     CFNotificationCenterAddObserver(center,
                                     (__bridge const void *)(self),
                                     wormholeNotificationCallback,
-                                    str,
+                                    CFSTR("CFGWLWormholeHello"),
                                     NULL,
-                                    CFNotificationSuspensionBehaviorDeliverImmediately);
+                                    0);
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveMessageNotification:)
                                                  name:GWLWormholeNotificationName
                                                object:nil];
-}
-
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-
-    // Update the view, if already loaded.
 }
 
 - (void)dealloc {
