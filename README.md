@@ -7,4 +7,3 @@
 ## Note
 
 1. OS X support distributed notification center and that can be used for IPC, too. On the other hand, iOS doesn't support distributed notification center.
-2. There is no way to implement CFNotificationCallback in Swift. So we can not observe Darwin Notification Center in pure Swift application. But we can implement the function in Objective-C and use it in Swift.
